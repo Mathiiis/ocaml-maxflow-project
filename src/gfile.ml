@@ -115,18 +115,18 @@ let from_file path =
 let export path graph =
 
     (* Open a write-file. *)
-  let ff = open_out path in
+    let ff = open_out path in
 
     (* Write in this file. *)
-  fprintf ff "digraph finite_state_machine {\n rankdir=LR; \n node [shape = circle];\n" ;
+    fprintf ff "digraph finite_state_machine {\n rankdir=LR; \n node [shape = circle];\n" ;
 
     (* Write all nodes *)
-  n_iter_sorted graph (fun id -> fprintf ff " %d;\n" id) ;
+    n_iter_sorted graph (fun id -> fprintf ff " %d;\n" id) ;
 
-  (* Write all arcs *)
-  e_iter graph (fun arc -> fprintf ff " %d -> %d [label = \"%s\"];\n" arc.src arc.tgt arc.lbl);
+    (* Write all arcs *)
+    e_iter graph (fun arc -> fprintf ff " %d -> %d [label = \"%s\"];\n" arc.src arc.tgt arc.lbl);
   
-  fprintf ff "}\n" ;
+    fprintf ff "}\n" ;
   
-  close_out ff ;
-  ()
+    close_out ff ;
+    ()

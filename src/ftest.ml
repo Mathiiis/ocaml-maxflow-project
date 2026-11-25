@@ -20,9 +20,8 @@ let () =
   let infile = Sys.argv.(1)
   and outfile = Sys.argv.(4)
   
-  (* These command-line arguments are not used for the moment. *)
-  and _source = int_of_string Sys.argv.(2)
-  and _sink = int_of_string Sys.argv.(3)
+  and source = int_of_string Sys.argv.(2)
+  and sink = int_of_string Sys.argv.(3)
   in
 
   (* Open file *)
@@ -53,6 +52,14 @@ let () =
   (* Rewrite the graph that has been read. *)
   let () = write_file outfile graph in
 
+  (* Test export on graph1: *)
   let () = export (outfile ^ ".dot") graph in
+
+  (* Test find°path on graph1 *)
+  let () = 
+    match Fordfulkerson.find_path graph_int [] source sink with
+    | None -> Printf.printf "no path found\n"
+    | Some p -> Printf.printf "%s\n" (String.concat " -> " (List.map string_of_int p))
+  in
 
   ()
